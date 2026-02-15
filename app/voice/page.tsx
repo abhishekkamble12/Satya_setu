@@ -1,41 +1,3 @@
-"use client";
-
-import React from "react";
-import useVoiceState from "../../hooks/useVoiceState";
-
-export default function VoicePage() {
-  const { state, startListening, stopListening } = useVoiceState();
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white flex flex-col">
-      <header className="px-4 py-4">
-        <div className="max-w-3xl mx-auto flex items-center justify-between">
-          <div className="font-semibold">SatyaSetu</div>
-          <div className="text-sm bg-white/5 px-3 py-1 rounded-full">English • हिन्दी</div>
-        </div>
-      </header>
-
-      <main className="flex-1 flex flex-col items-center justify-end pb-12">
-        <div className="w-full max-w-md px-4">
-          <div className="mb-6 p-4 rounded-2xl bg-white/5 backdrop-blur">
-            <p className="text-lg">Namaste. I am listening. Tap the button to verify a message.</p>
-          </div>
-        </div>
-
-        <div className="w-full flex justify-center px-4">
-          <button
-            onMouseDown={startListening}
-            onMouseUp={stopListening}
-            className="w-28 h-28 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 shadow-lg flex items-center justify-center"
-            aria-label="Voice control"
-          >
-            <div className="text-black font-bold">{state === "listening" ? "●" : "🎤"}</div>
-          </button>
-        </div>
-      </main>
-    </div>
-  );
-}
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
@@ -238,17 +200,17 @@ export default function VoicePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-rural-green">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-green-900">
       {/* Header */}
       <header className="bg-black/20 backdrop-blur-md p-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2 text-white hover:text-rural-gold transition-colors">
+          <Link href="/" className="flex items-center space-x-2 text-white hover:text-yellow-500 transition-colors">
             <ArrowLeft className="h-5 w-5" />
             <span>Back to Home</span>
           </Link>
           <h1 className="text-2xl font-bold text-white">Voice Assistant</h1>
           <div className="flex items-center space-x-2">
-            <div className={`w-2 h-2 rounded-full ${voiceState.isConnected ? 'bg-safe-green' : 'bg-alert-red'} animate-pulse`}></div>
+            <div className={`w-2 h-2 rounded-full ${voiceState.isConnected ? 'bg-green-500' : 'bg-red-500'} animate-pulse`}></div>
             <span className="text-sm text-white">{voiceState.isConnected ? 'Connected' : 'Disconnected'}</span>
           </div>
         </div>
@@ -257,9 +219,9 @@ export default function VoicePage() {
       <div className="max-w-4xl mx-auto p-4 pt-8">
         {/* Connection Error */}
         {!voiceState.isConnected && (
-          <div className="bg-alert-red/20 border border-alert-red rounded-xl p-4 mb-6">
+          <div className="bg-red-500/20 border border-red-500 rounded-xl p-4 mb-6">
             <div className="flex items-center space-x-2">
-              <AlertCircle className="h-5 w-5 text-alert-red" />
+              <AlertCircle className="h-5 w-5 text-red-500" />
               <span className="text-white font-semibold">Connection Error</span>
             </div>
             <p className="text-gray-200 mt-2">
@@ -267,7 +229,7 @@ export default function VoicePage() {
             </p>
             <button 
               onClick={checkConnection}
-              className="mt-3 bg-alert-red hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+              className="mt-3 bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
             >
               Retry Connection
             </button>
@@ -280,21 +242,21 @@ export default function VoicePage() {
             {/* Voice Status Display */}
             <div className="text-center mb-8">
               {voiceState.isListening && (
-                <div className="text-rural-gold text-lg mb-4 animate-pulse">
+                <div className="text-yellow-500 text-lg mb-4 animate-pulse">
                   🎤 Listening... Speak now
                   <br />
-                  <span className="hindi-text">सुन रहा हूँ... अब बोलें</span>
+                  <span>सुन रहा हूँ... अब बोलें</span>
                 </div>
               )}
               
               {voiceState.isProcessing && (
-                <div className="text-cyber-blue text-lg mb-4">
+                <div className="text-blue-400 text-lg mb-4">
                   <LoadingSpinner size="md" text="Processing... प्रोसेसिंग..." />
                 </div>
               )}
 
               {voiceState.error && (
-                <div className="text-alert-red text-lg mb-4 bg-alert-red/10 rounded-lg p-4">
+                <div className="text-red-400 text-lg mb-4 bg-red-500/10 rounded-lg p-4">
                   <div className="flex items-center justify-center space-x-2 mb-2">
                     <AlertCircle className="h-5 w-5" />
                     <span>Error</span>
@@ -319,10 +281,10 @@ export default function VoicePage() {
                   w-32 h-32 rounded-full flex items-center justify-center text-white text-4xl
                   transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed
                   ${voiceState.isListening 
-                    ? 'bg-alert-red animate-pulse shadow-lg shadow-red-500/50' 
+                    ? 'bg-red-500 animate-pulse shadow-lg shadow-red-500/50' 
                     : voiceState.isProcessing
                     ? 'bg-gray-500 cursor-not-allowed'
-                    : 'bg-rural-gold hover:bg-yellow-600 shadow-lg shadow-yellow-500/50'
+                    : 'bg-yellow-500 hover:bg-yellow-600 shadow-lg shadow-yellow-500/50'
                   }
                 `}
               >
@@ -336,7 +298,7 @@ export default function VoicePage() {
                 {[...Array(5)].map((_, i) => (
                   <div
                     key={i}
-                    className="voice-wave bg-rural-gold w-2 h-8 rounded-full"
+                    className="bg-yellow-500 w-2 h-8 rounded-full animate-pulse"
                     style={{ animationDelay: `${i * 0.1}s` }}
                   ></div>
                 ))}
@@ -347,16 +309,16 @@ export default function VoicePage() {
             {voiceState.currentText && (
               <div className="bg-black/20 rounded-lg p-4 mb-4">
                 <h3 className="text-white font-semibold mb-2">You said:</h3>
-                <p className="text-gray-200 hindi-text">{voiceState.currentText}</p>
+                <p className="text-gray-200">{voiceState.currentText}</p>
               </div>
             )}
 
             {/* AI Response */}
             {voiceState.response && (
-              <div className="bg-cyber-blue/20 rounded-lg p-4 mb-4">
+              <div className="bg-blue-500/20 rounded-lg p-4 mb-4">
                 <h3 className="text-white font-semibold mb-2">SatyaSetu Response:</h3>
-                <p className="text-gray-200 hindi-text">{voiceState.response}</p>
-                <button className="mt-2 text-rural-gold hover:text-yellow-300 flex items-center space-x-1">
+                <p className="text-gray-200">{voiceState.response}</p>
+                <button className="mt-2 text-yellow-500 hover:text-yellow-300 flex items-center space-x-1">
                   <Volume2 className="h-4 w-4" />
                   <span>Play Audio</span>
                 </button>
@@ -374,14 +336,14 @@ export default function VoicePage() {
               value={textInput}
               onChange={(e) => setTextInput(e.target.value)}
               placeholder="Type in Hindi or English... हिंदी या अंग्रेजी में टाइप करें..."
-              className="flex-1 bg-black/20 text-white placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-rural-gold hindi-text"
+              className="flex-1 bg-black/20 text-white placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-500"
               disabled={voiceState.isProcessing || !voiceState.isConnected}
               maxLength={1000}
             />
             <button
               type="submit"
               disabled={voiceState.isProcessing || !textInput.trim() || !voiceState.isConnected}
-              className="bg-rural-gold hover:bg-yellow-600 disabled:bg-gray-500 disabled:cursor-not-allowed text-black px-6 py-3 rounded-lg font-semibold transition-colors flex items-center space-x-2"
+              className="bg-yellow-500 hover:bg-yellow-600 disabled:bg-gray-500 disabled:cursor-not-allowed text-black px-6 py-3 rounded-lg font-semibold transition-colors flex items-center space-x-2"
             >
               <Send className="h-4 w-4" />
               <span>Send</span>
@@ -399,8 +361,8 @@ export default function VoicePage() {
                   key={index}
                   className={`p-3 rounded-lg ${
                     message.type === 'user' 
-                      ? 'bg-rural-gold/20 ml-8' 
-                      : 'bg-cyber-blue/20 mr-8'
+                      ? 'bg-yellow-500/20 ml-8' 
+                      : 'bg-blue-500/20 mr-8'
                   }`}
                 >
                   <div className="flex justify-between items-start mb-1">
@@ -414,7 +376,7 @@ export default function VoicePage() {
                       )}
                     </div>
                   </div>
-                  <p className="text-gray-200 hindi-text">{message.text}</p>
+                  <p className="text-gray-200">{message.text}</p>
                 </div>
               ))}
             </div>
@@ -426,14 +388,14 @@ export default function VoicePage() {
       <div className="fixed bottom-4 right-4 space-y-2">
         <button 
           onClick={() => voiceState.response && alert('Audio playback not implemented yet')}
-          className="bg-safe-green hover:bg-green-600 text-white p-3 rounded-full shadow-lg transition-colors"
+          className="bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg transition-colors"
           disabled={!voiceState.response}
         >
           <Volume2 className="h-5 w-5" />
         </button>
         <Link 
           href="/admin"
-          className="bg-cyber-blue hover:bg-blue-600 text-white p-3 rounded-full shadow-lg transition-colors block"
+          className="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-lg transition-colors block"
         >
           📊
         </Link>

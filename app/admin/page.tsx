@@ -1,17 +1,3 @@
-"use client";
-
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-
-export default function AdminRedirect() {
-  const router = useRouter();
-
-  useEffect(() => {
-    router.replace("/admin_dashboard");
-  }, [router]);
-
-  return <div className="min-h-screen flex items-center justify-center">Redirecting to admin dashboard...</div>;
-}
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
@@ -169,9 +155,9 @@ export default function AdminPage() {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'healthy': return <CheckCircle className="h-5 w-5 text-safe-green" />
-      case 'degraded': return <AlertTriangle className="h-5 w-5 text-rural-gold" />
-      case 'error': return <XCircle className="h-5 w-5 text-alert-red" />
+      case 'healthy': return <CheckCircle className="h-5 w-5 text-green-500" />
+      case 'degraded': return <AlertTriangle className="h-5 w-5 text-yellow-500" />
+      case 'error': return <XCircle className="h-5 w-5 text-red-500" />
       default: return <Activity className="h-5 w-5 text-gray-400" />
     }
   }
@@ -185,18 +171,18 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-rural-green">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-green-900">
       {/* Header */}
       <header className="bg-black/20 backdrop-blur-md p-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2 text-white hover:text-rural-gold transition-colors">
+          <Link href="/" className="flex items-center space-x-2 text-white hover:text-yellow-500 transition-colors">
             <ArrowLeft className="h-5 w-5" />
             <span>Back to Home</span>
           </Link>
           <h1 className="text-2xl font-bold text-white">Admin Dashboard</h1>
           <div className="flex items-center space-x-4">
-            <div className={`flex items-center space-x-2 ${isConnected ? 'text-safe-green' : 'text-alert-red'}`}>
-              <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-safe-green' : 'bg-alert-red'} animate-pulse`}></div>
+            <div className={`flex items-center space-x-2 ${isConnected ? 'text-green-500' : 'text-red-500'}`}>
+              <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'} animate-pulse`}></div>
               <span className="text-sm">{isConnected ? 'Live' : 'Disconnected'}</span>
             </div>
           </div>
@@ -212,7 +198,7 @@ export default function AdminPage() {
                 <p className="text-gray-300 text-sm">Total Requests</p>
                 <p className="text-2xl font-bold text-white">{systemStats?.total_requests || 0}</p>
               </div>
-              <Activity className="h-8 w-8 text-cyber-blue" />
+              <Activity className="h-8 w-8 text-blue-400" />
             </div>
           </div>
 
@@ -222,7 +208,7 @@ export default function AdminPage() {
                 <p className="text-gray-300 text-sm">Active Connections</p>
                 <p className="text-2xl font-bold text-white">{systemStats?.active_connections || 0}</p>
               </div>
-              <Users className="h-8 w-8 text-safe-green" />
+              <Users className="h-8 w-8 text-green-500" />
             </div>
           </div>
 
@@ -232,7 +218,7 @@ export default function AdminPage() {
                 <p className="text-gray-300 text-sm">Success Rate</p>
                 <p className="text-2xl font-bold text-white">{((systemStats?.ai_pipeline_stats?.success_rate || 0.95) * 100).toFixed(1)}%</p>
               </div>
-              <Shield className="h-8 w-8 text-rural-gold" />
+              <Shield className="h-8 w-8 text-yellow-500" />
             </div>
           </div>
 
@@ -242,7 +228,7 @@ export default function AdminPage() {
                 <p className="text-gray-300 text-sm">Avg Response Time</p>
                 <p className="text-2xl font-bold text-white">{systemStats?.ai_pipeline_stats?.avg_processing_time || 1.2}s</p>
               </div>
-              <AlertTriangle className="h-8 w-8 text-alert-red" />
+              <AlertTriangle className="h-8 w-8 text-red-500" />
             </div>
           </div>
         </div>
@@ -323,7 +309,7 @@ export default function AdminPage() {
               <h3 className="text-white font-semibold">AI Pipeline Status</h3>
               <button 
                 onClick={triggerTestEvent}
-                className="bg-rural-gold hover:bg-yellow-600 text-black px-3 py-1 rounded text-sm font-medium transition-colors"
+                className="bg-yellow-500 hover:bg-yellow-600 text-black px-3 py-1 rounded text-sm font-medium transition-colors"
               >
                 Test Event
               </button>
@@ -363,7 +349,7 @@ export default function AdminPage() {
               {telemetryEvents.map((event, index) => (
                 <div key={index} className="bg-black/20 rounded p-3 text-sm">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-rural-gold font-medium">{event.type}</span>
+                    <span className="text-yellow-500 font-medium">{event.type}</span>
                     <span className="text-gray-400 text-xs">
                       {new Date(event.timestamp).toLocaleTimeString()}
                     </span>
